@@ -1,7 +1,5 @@
 const { app, BrowserWindow, ipcMain, Notification, Menu, Tray } = require('electron');
 const path = require('path');
-const { autoUpdater } = require("electron-updater");
-const log = require('electron-log');
 const isDev = !app.isPackaged;
 app.allowRendererProcessReuse = true
 app.disableHardwareAcceleration();
@@ -10,9 +8,6 @@ app.disableHardwareAcceleration();
 const dockIcon = path.join(__dirname, 'assets', 'img', 'chat_logo.png');
 const trayIcon = path.join(__dirname, 'assets', 'img', 'chat_tray_icon.png');
 
-autoUpdater.logger = log;
-autoUpdater.logger.transports.file.level = 'info';
-log.info('App starting...');
 
 function createSplashdWindow() {
     // Browser Window <- Renderer Process
@@ -80,7 +75,6 @@ app.whenReady()
         setTimeout(() => {
             splash.destroy();
             mainApp.show();
-            autoUpdater.checkForUpdates();
         }, 2000)
     });
 });
@@ -100,31 +94,4 @@ app.on('activate', () => {
     }
 })
 
-autoUpdater.on('checking-for-update', () => {
-    sendStatusToWindow('Checking for update...');
-})
-autoUpdater.on('update-available', (ev, info) => {
-    sendStatusToWindow('Update available.');
-})
-autoUpdater.on('update-not-available', (ev, info) => {
-    sendStatusToWindow('Update not available.');
-})
-autoUpdater.on('error', (ev, err) => {
-    sendStatusToWindow('Error in auto-updater.');
-})
-autoUpdater.on('download-progress', (ev, progressObj) => {
-sendStatusToWindow('Download progress...');
-})
-autoUpdater.on('update-downloaded', (ev, info) => {
-sendStatusToWindow('Update downloaded; will install in 5 seconds');
-});
-
-autoUpdater.on('update-downloaded', (ev, info) => {
-    // Wait 5 seconds, then quit and install
-    // In your application, you don't need to wait 5 seconds.
-    // You could call autoUpdater.quitAndInstall(); immediately
-    setTimeout(function() {
-      autoUpdater.quitAndInstall();  
-    }, 5000)
-  })
   

@@ -1,6 +1,6 @@
 {
   "name": "chatapp",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Chat Group App For Windows",
   "main": "main.js",
   "scripts": {
@@ -62,7 +62,7 @@
       "target": "nsis",
       "publisherName": "Arya Ferdyansah",
       "requestedExecutionLevel": "requireAdministrator"
-     
+
     },
     "linux": {
       "target": [
