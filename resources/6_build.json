@@ -1,0 +1,48 @@
+"build": {
+    "productName": "Chat App",
+    "appId": "com.arya.chatapp",
+    "files": [
+        "build/**/*",
+        "assets/**/*",
+        "utils/**/*",
+        "index.html",
+        "second.html",
+        "splash.css",
+        "main.js",
+        "preload.js"
+    ],
+    "mac": {
+        "category": "public.app-category.developer-tools",
+        "icon": "assets/img/chat_logo.png",
+        "hardenedRuntime": true,
+        "gatekeeperAssess": false
+    },
+    "dmg": {
+        "contents": [
+            {
+                "x": 130,
+                "y": 220
+            },
+            {
+                "x": 810,
+                "y": 220,
+                "type": "link",
+                "path": "/Applications"
+            }
+        ]
+    },
+    "win": {
+        "icon": "assets/img/chat_logo.png",
+        "target": [
+            "nsis"
+        ]
+    },
+    "linux": {
+        "target": [
+            "deb",
+            "rpm",
+            "AppImage"
+        ],
+        "category": "Development"
+    }
+},
