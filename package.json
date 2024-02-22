@@ -1,9 +1,10 @@
 {
   "name": "chatapp",
   "version": "1.0.0",
-  "description": "Chat App For Windows",
+  "description": "Chat Group App For Windows",
   "main": "main.js",
   "scripts": {
+    "publish": "electron-builder --mac --win -p always",
     "start": "electron .",
     "watch": "webpack --config webpack.common.js --watch",
     "build": "webpack --config webpack.prod.js",
@@ -16,6 +17,13 @@
   "author": "Arya ferdyansah",
   "license": "ISC",
   "build": {
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "zxmodren",
+        "repo": "chatgroupapp"
+      }
+    ],
     "productName": "Chat Group App",
     "appId": "com.arya.chatgroupapp",
     "files": [
@@ -67,14 +75,23 @@
     "@babel/core": "^7.19.0",
     "@babel/preset-env": "^7.19.0",
     "@babel/preset-react": "^7.18.6",
+    "@emoji-mart/data": "^1.1.2",
+    "@emoji-mart/react": "^1.1.1",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.10",
+    "@mui/material": "^5.15.10",
     "@reduxjs/toolkit": "^1.8.5",
     "babel-loader": "^8.2.5",
     "bootstrap": "^4.5.2",
+    "crypto-js": "^4.2.0",
     "css-loader": "^6.7.1",
     "dotenv-webpack": "^8.0.1",
     "electron": "^20.1.1",
     "electron-builder": "^23.3.3",
     "electron-reload": "^2.0.0-alpha.1",
+    "emoji-mart": "^5.5.2",
+    "firebase": "^8.10.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -88,18 +105,10 @@
     "style-loader": "^3.3.1",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
-    "webpack-merge": "^5.8.0",
-    "@emoji-mart/data": "^1.1.2",
-    "@emoji-mart/react": "^1.1.1",
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.15.10",
-    "@mui/material": "^5.15.10",
-    "crypto-js": "^4.2.0",
-    "emoji-mart": "^5.5.2",
-    "firebase": "^8.10.0"
+    "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-
+    "electron-log": "^5.1.1",
+    "electron-updater": "^6.1.8"
   }
 }

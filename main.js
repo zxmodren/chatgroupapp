@@ -1,10 +1,15 @@
 const { app, BrowserWindow, ipcMain, Notification, Menu, Tray } = require('electron');
 const path = require('path');
-const { autoUpdater } = require('electron-updater');
+const { autoUpdater } = require("electron-updater");
+const log = require('electron-log');
 const isDev = !app.isPackaged;
 
 const dockIcon = path.join(__dirname, 'assets', 'img', 'chat_logo.png');
 const trayIcon = path.join(__dirname, 'assets', 'img', 'chat_tray_icon.png');
+
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = 'info';
+log.info('App starting...');
 
 function createSplashdWindow() {
     // Browser Window <- Renderer Process
@@ -55,34 +60,27 @@ if (isDev) {
 
 let tray = null;
 app.whenReady()
-    .then(() => {
-        const template = require('./src/js/utils/Menu').createTemplate(app);
-        const menu = Menu.buildFromTemplate(template);
-        const splash = createSplashdWindow();
-        const mainApp = createWindow();
+.then(() => {
+    const template = require('./src/js/utils/Menu').createTemplate(app);
+    const menu = Menu.buildFromTemplate(template);
+    const splash = createSplashdWindow();
+    const mainApp = createWindow();
 
-        Menu.setApplicationMenu(menu);
-        tray = new Tray(trayIcon);
-        tray.setContextMenu(menu);
+    Menu.setApplicationMenu(menu);
+    tray = new Tray(trayIcon);
+    tray.setContextMenu(menu);
 
-        mainApp.once('ready-to-show', () => {
-            // splash.destroy();
-            // mainApp.show();
-            setTimeout(() => {
-                splash.destroy();
-                mainApp.show();
-            }, 2000)
-        });
-        autoUpdater.checkForUpdatesAndNotify();
-
-        autoUpdater.on('update-available', () => {
-            new Notification({ title: 'Update Available', body: 'A new version of the app is available.' }).show();
-        });
-
-        autoUpdater.on('update-downloaded', () => {
-            new Notification({ title: 'Update Downloaded', body: 'The update has been downloaded. Restart the app to apply the update.' }).show();
-        });
+    mainApp.once('ready-to-show', () => {
+        // splash.destroy();
+        // mainApp.show();
+        
+        setTimeout(() => {
+            splash.destroy();
+            mainApp.show();
+            autoUpdater.checkForUpdates();
+        }, 2000)
     });
+});
 
 ipcMain.on('notify', (_, message) => {
     new Notification({ title: 'Notification', body: message }).show();
@@ -98,3 +96,32 @@ app.on('activate', () => {
 
     }
 })
+
+autoUpdater.on('checking-for-update', () => {
+    sendStatusToWindow('Checking for update...');
+})
+autoUpdater.on('update-available', (ev, info) => {
+    sendStatusToWindow('Update available.');
+})
+autoUpdater.on('update-not-available', (ev, info) => {
+    sendStatusToWindow('Update not available.');
+})
+autoUpdater.on('error', (ev, err) => {
+    sendStatusToWindow('Error in auto-updater.');
+})
+autoUpdater.on('download-progress', (ev, progressObj) => {
+sendStatusToWindow('Download progress...');
+})
+autoUpdater.on('update-downloaded', (ev, info) => {
+sendStatusToWindow('Update downloaded; will install in 5 seconds');
+});
+
+autoUpdater.on('update-downloaded', (ev, info) => {
+    // Wait 5 seconds, then quit and install
+    // In your application, you don't need to wait 5 seconds.
+    // You could call autoUpdater.quitAndInstall(); immediately
+    setTimeout(function() {
+      autoUpdater.quitAndInstall();  
+    }, 5000)
+  })
+  
