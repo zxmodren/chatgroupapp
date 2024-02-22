@@ -3,6 +3,9 @@ const path = require('path');
 const { autoUpdater } = require("electron-updater");
 const log = require('electron-log');
 const isDev = !app.isPackaged;
+app.allowRendererProcessReuse = true
+app.disableHardwareAcceleration();
+
 
 const dockIcon = path.join(__dirname, 'assets', 'img', 'chat_logo.png');
 const trayIcon = path.join(__dirname, 'assets', 'img', 'chat_tray_icon.png');
