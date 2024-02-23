@@ -3,6 +3,7 @@ node_modules/
 
 # Ignore build folder
 build/
+dist/
 
 # Ignore .env file
 .env
