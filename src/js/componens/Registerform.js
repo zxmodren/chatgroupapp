@@ -3,9 +3,11 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../actions/auth';
 import LoadingView from './shared/LoadingView';
+import { TextField, Button, Typography, Grid, IconButton } from '@mui/material';
+import { Email as EmailIcon, Lock as LockIcon } from '@mui/icons-material';
 
 export default function Registerf() {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const dispatch = useDispatch();
     const error = useSelector(({ auth }) => auth.register.error)
     const isChecking = useSelector(({ auth }) => auth.register.isChecking)
@@ -18,30 +20,46 @@ export default function Registerf() {
     return (
 
         <form onSubmit={handleSubmit(onSubmit)} className="centered-container-form">
-            <div className="header">Create an account</div>
+             <Typography variant="h5" gutterBottom>Create an Account</Typography>
             <div className="form-container">
                 <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                        {...register('email')}
-                        type="email"
-                        className="form-control"
-                        name="email"
-                        id="email"
-                        aria-describedby="emailHelp" />
-                    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item>
+                            <EmailIcon />
+                        </Grid>
+                        <Grid item xs>
+                            <TextField
+                                label="Email"
+                                type="email"
+                                fullWidth
+                                variant="outlined"
+                                {...register('email', { required: true })}
+                                error={Boolean(errors.email)}
+                                helperText={errors.email ? 'Email is required' : ''}
+                            />
+                        </Grid>
+                    </Grid>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        {...register('password')}
-                        name="password"
-                        type="password"
-                        className="form-control"
-                        id="password" />
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item>
+                            <LockIcon />
+                        </Grid>
+                        <Grid item xs>
+                            <TextField
+                                label="Password"
+                                type="password"
+                                fullWidth
+                                variant="outlined"
+                                {...register('password', { required: true })}
+                                error={Boolean(errors.password)}
+                                helperText={errors.password ? 'Password is required' : ''}
+                            />
+                        </Grid>
+                    </Grid>
                 </div>
                 {error && <div className="alert alert-danger small">{error.message}</div>}
-                <button type="submit" className="btn btn-outline-primary">Register</button>
+                <Button type="submit" variant="contained" color="primary" fullWidth>Register</Button>
             </div>
         </form>
 

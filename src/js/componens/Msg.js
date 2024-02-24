@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { createTimestamp } from '../utils/tm';
+import { IconButton, TextareaAutosize } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 
 export default function Messenger({ onSubmit }) {
     const [value, setValue] = useState('');
@@ -25,15 +27,17 @@ export default function Messenger({ onSubmit }) {
 
     return (
         <div className="chat-input form-group mt-3 mb-0 d-flex justify-content-between">
-            <textarea
-                onChange={e => setValue(e.target.value)}
+            <TextareaAutosize
+                onChange={(e) => setValue(e.target.value)}
                 onKeyPress={onKeyPress}
                 value={value}
                 className="form-control mr-2"
                 rows="1"
-                placeholder="Type your message here..">
-            </textarea>
-            <button onClick={sendMessage} className="btn btn-primary align-self-end mt-2">Send</button>
+                placeholder="Type your message here.."
+            />
+            <IconButton onClick={sendMessage} color="primary" className="align-self-end mt-2">
+                <SendIcon />
+            </IconButton>
         </div>
     )
 }

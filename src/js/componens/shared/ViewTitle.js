@@ -1,10 +1,10 @@
 import React from 'react';
-
+import { Box, Typography } from '@mui/material';
 export default function ViewTitle({ text, children }) {
     return (
-        <div className="chat-name-container">
-            <span className="name">{text}</span>
-            <div>{children}</div>
-        </div>
+        <Box className="chat-name-container">
+        <Typography variant="body1" className="name">{text}</Typography>
+        <div>{children}</div>
+        </Box>
     )
 }

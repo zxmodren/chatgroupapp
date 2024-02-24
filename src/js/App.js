@@ -19,7 +19,7 @@ import {
 
 import { listenToConnectionChanges } from './actions/app';
 import { loadInitialSettings } from './actions/setting';
-
+import { ThemeProvider } from '@mui/material/styles';
 
 function AuthRoute({ children, ...rest }) {
     const user = useSelector(({ auth }) => auth.user)
@@ -78,6 +78,7 @@ function ChatApp() {
     return (
         <Router>
             <ContentWrapper>
+            
                 <Switch>
                     <Route path="/" exact>
                         <Welcomev />
@@ -98,6 +99,7 @@ function ChatApp() {
                         <EProfile />
                     </AuthRoute>
                 </Switch>
+
             </ContentWrapper>
         </Router>
 
@@ -110,7 +112,9 @@ function ChatApp() {
 export default function App() {
     return (
         <StoreProvider >
-            <ChatApp />
+
+                <ChatApp />
+          
         </StoreProvider>
 
     )

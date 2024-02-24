@@ -1,0 +1,34 @@
+// ChatList.scss
+.chat-list-container {
+    margin-top: 20px;
+}
+
+.chat-card {
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    height: 100%;
+
+    &:hover {
+        transform: scale(1.02);
+    }
+
+    .card-content {
+        padding: 16px;
+    }
+
+    .join-button {
+        margin-top: 10px;
+    }
+}
+
+.alert {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.alert-warning {
+    background-color: #ffd54f;
+    color: #f57c00;
+}

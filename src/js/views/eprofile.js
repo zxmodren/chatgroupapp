@@ -43,17 +43,18 @@ function EProfile() {
     const uploadImg = async () => {
         if (imgUpload == null) return;
     
-        const storageRef = firebase.storage().ref();
+        const storage = firebase.storage();
+        const storageRef = storage.ref();
         const imgRef = storageRef.child(`avatars/${user.uid}/${imgUpload.name}`);
     
         try {
-            // Hapus avatar lama jika ada
+            // Hapus avatar lama jika ada dan berasal dari Firebase Storage
             const profileRef = firebase.firestore().collection('profiles').doc(user.uid);
             const doc = await profileRef.get();
             if (doc.exists) {
                 const oldAvatarUrl = doc.data().avatar;
-                if (oldAvatarUrl) {
-                    const oldAvatarRef = storageRef.storage.refFromURL(oldAvatarUrl);
+                if (oldAvatarUrl && oldAvatarUrl.startsWith('https://firebasestorage.googleapis.com')) {
+                    const oldAvatarRef = storage.refFromURL(oldAvatarUrl);
                     await oldAvatarRef.delete();
                     console.log('Old avatar deleted successfully');
                 }
@@ -72,6 +73,9 @@ function EProfile() {
             console.error('Error uploading image or updating avatar URL:', error);
         }
     };
+    
+    
+    
     const updateUserProfile = async () => {
         try {
             if (user.username !== userData.username) {

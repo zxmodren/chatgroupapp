@@ -1,30 +1,36 @@
 import React from 'react';
+import { Avatar, List, ListItem, ListItemAvatar, ListItemText, Typography, InputBase, Paper } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+
+import './shared/scss/chatuserlist.scss';
 export default function Chatuserlist({ users = [] }) {
     return (
         <div className="list-container">
-            <div className="chat-search-box">
+            <Paper component="div" className="chat-search-box">
                 <div className="input-group">
-                    <input className="form-control" placeholder="Search" />
+                    <SearchIcon />
+                    <InputBase className="form-control" placeholder="Search" />
                 </div>
-            </div>
-            <ul className="items">
-                {users.map(user => (
-                    <li
-                        key={user.uid}
-                        className="item">
-                        <div className="item-status">
-                            <img
-                                src={user.avatar}
-                                alt="Retail Admin" />
-                            <span className={`status ${user.state}`}></span>
-                        </div>
-                        <p className="name-time">
-                            <span className="name mr-2">{user.username}</span>
-                        </p>
-                    </li>
-                ))
-                }
-            </ul>
+            </Paper>
+            <List>
+                {users.map((user) => (
+                    <ListItem key={user.uid} className="item">
+                        <ListItemAvatar>
+                            <Avatar alt="User Avatar" src={user.avatar} />
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary={
+                                <Typography variant="h6" className="name">
+                                    {user.username}
+                                </Typography>
+                            }
+                            secondary={
+                                <span className={`status ${user.state}`}></span>
+                            }
+                        />
+                    </ListItem>
+                ))}
+            </List>
         </div>
     )
 }

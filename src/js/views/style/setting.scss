@@ -1,0 +1,27 @@
+// styles.scss
+$primary-color: #3f51b5;
+
+.centered-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.centered-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.form-container {
+    margin-top: 20px;
+
+    .form-check-label {
+        font-size: 1.1rem;
+    }
+}
+
+.btn-quit {
+    margin-top: 20px;
+}

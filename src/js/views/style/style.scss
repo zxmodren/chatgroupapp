@@ -1,0 +1,29 @@
+// styles.scss
+$primary-color: #3f51b5;
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+.centered-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.centered-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.form-container {
+    margin-top: 20px;
+}
+
+.btn-submit {
+    margin-top: 20px;
+}

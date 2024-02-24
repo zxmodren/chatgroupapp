@@ -4,6 +4,7 @@ import { withBaseLayout } from '../layouts/Base';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createChat } from '../actions/chat';
+import { Typography, TextField, Button, Card, CardContent, Grid } from '@mui/material';
 import md5 from 'crypto-js/md5';
 
 function ChatCreate() {
@@ -33,45 +34,61 @@ function ChatCreate() {
     return (
         <div className="centered-view">
             <div className="centered-container">
-                <form onSubmit={handleSubmit(onSubmit)} className="centered-container-form">
-                    <div className="header">Create chat now!</div>
-                    <div className="subheader">Chat with people you know</div>
-                    <div className="form-container">
-                        <div className="form-group">
-                            <label htmlFor="name">Name</label>
-                            <input
-                                {...register('name')}
-                                type="text"
-                                className="form-control"
-                                id="name"
-                                name="name"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="description">Description</label>
-                            <textarea
-                                {...register('description')}
-                                name="description"
-                                className="form-control"
-                                id="description">
-                            </textarea>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="image">Image</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="image"
-                                name="image"
-                                readOnly
-                                value={imageUrl}
-                            />
-                        </div>
-                        <button
-                            type="submit"
-                            className="btn btn-outline-primary">Create</button>
-                    </div>
-                </form>
+                <Card>
+                    <CardContent>
+                        <Typography variant="h4" align="center">Create Chat Now!</Typography>
+                        <Typography variant="subtitle1" align="center">Chat with people you know</Typography>
+                        <form onSubmit={handleSubmit(onSubmit)} className="centered-container-form">
+                            <div className="form-container">
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            {...register('name')}
+                                            label="Name"
+                                            id="name"
+                                            name="name"
+                                            fullWidth
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            {...register('description')}
+                                            label="Description"
+                                            id="description"
+                                            name="description"
+                                            multiline
+                                            rows={4}
+                                            fullWidth
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            {...register('image')}
+                                            id="image"
+                                            name="image"
+                                            label="Image"
+                                            defaultValue={imageUrl}
+                                            InputProps={{
+                                                readOnly: true,
+                                            }}
+                                            fullWidth
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Button
+                                            type="submit"
+                                            variant="contained"
+                                            color="primary"
+                                            fullWidth
+                                        >
+                                            Create
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            </div>
+                        </form>
+                    </CardContent>
+                </Card>
             </div>
         </div>
     );
